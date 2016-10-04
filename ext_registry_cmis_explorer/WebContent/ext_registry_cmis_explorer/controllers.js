@@ -81,10 +81,9 @@ angular
 	
 	$scope.deleteItems = function(){
 		var idsToDelete = []
-		for (var key in $scope.selectedCheckboxes)
-			if ($scope.selectedCheckboxes[key] === true)
-				idsToDelete.push(key);
-				
+		for (var i in $scope.itemsToDelete)
+			idsToDelete.push($scope.itemsToDelete[i].id);
+		
 		$http({ url: $scope.docsUrl, 
                 method: 'DELETE', 
                 data: idsToDelete, 
@@ -101,12 +100,22 @@ angular
 	};
 	
 	$scope.handleDeleteButton = function(){
-		$('#confirmDeleteModal').modal('show');
+		var itemsToDelete = [];
+		for (var i in $scope.folder.children)
+			if ($scope.folder.children[i].selected === true)
+				itemsToDelete.push({name: $scope.folder.children[i].name, id: $scope.folder.children[i].id});
+				
+		if (itemsToDelete.length > 0){
+			$scope.itemsToDelete = itemsToDelete;
+			$('#confirmDeleteModal').modal('show');		
+		} else {
+			$scope.inDeleteSession = false;
+		}
 	};
 	
 	function openErrorModal(titleText, bodyText){
-		$(".modal-header #title-text").text(titleText);
-     	$(".modal-body #body-text").text(bodyText);
+		$("#errorModal .modal-header #title-text").text(titleText);
+     	$("#errorModal .modal-body #body-text").text(bodyText);
      	$('#errorModal').modal('show');
 	};
 	
