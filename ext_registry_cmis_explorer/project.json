@@ -1,1 +1,10 @@
-{"guid":"ext_registry_cmis_explorer","repository":{"type":"git","branch":"master","url":"https://github.com/dirigiblelabs/ext_registry_cmis_explorer.git"}}
+{
+    "guid":"ext_registry_cmis_explorer",
+    "repository":
+        {
+            "type":"git",
+            "branch":"master",
+            "url":"https://github.com/dirigiblelabs/ext_registry_cmis_explorer.git"
+            
+        }
+}

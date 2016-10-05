@@ -36,6 +36,12 @@ angular
 		setUploaderFolder($scope.folder.id);
 	};
 	
+	function openErrorModal(titleText, bodyText){
+		$("#errorModal .modal-header #title-text").text(titleText);
+     	$("#errorModal .modal-body #body-text").text(bodyText);
+     	$('#errorModal').modal('show');
+	};
+	
 	getFolder()
 	.success(function(data){
 		setCurrentFolder(data);
@@ -64,8 +70,8 @@ angular
 		var postData = { parentFolderId: $scope.folder.id, name: newFolderName };
 		$http.post(folderUrl, postData)
 		.success(function(){
-			$('#newFolderModal').modal('hide');
 			$scope.newFolderName = undefined;
+			$('#newFolderModal').modal('hide');
 			refreshFolder();
 		})
 		.error(function(data){
@@ -99,6 +105,12 @@ angular
 		$scope.inDeleteSession = false;
 	};
 	
+	$scope.handleSingleDelete = function($event, item){
+		$event.stopPropagation();
+		$scope.itemsToDelete = [item];
+		$('#confirmDeleteModal').modal('show');
+	};
+	
 	$scope.handleDeleteButton = function(){
 		var itemsToDelete = [];
 		for (var i in $scope.folder.children)
@@ -113,11 +125,34 @@ angular
 		}
 	};
 	
-	function openErrorModal(titleText, bodyText){
-		$("#errorModal .modal-header #title-text").text(titleText);
-     	$("#errorModal .modal-body #body-text").text(bodyText);
-     	$('#errorModal').modal('show');
+	$scope.handleRenameButton = function($event, item){
+		$event.stopPropagation();
+		$scope.itemToDelete = item;
+		$('#renameModal').modal('show');
 	};
+	
+	$scope.renameItem = function(itemId, newName){
+		$http({ url: $scope.docsUrl, 
+                method: 'PUT', 
+                data: {id: itemId, name: newName }, 
+                headers: {"Content-Type": "application/json;charset=utf-8"}
+        }).success(function() {
+        	$('#renameModal').modal('hide');
+            refreshFolder();
+        }).error(function(error) {
+        	$('#renameModal').modal('hide');
+        	var title = "Failed to rename item" + $scope.itemToDelete.name;
+            openErrorModal(title, error.err.message);
+        });
+	}
+	
+	$scope.hoverIn = function(){
+        this.hoverEdit = true;
+    };
+
+    $scope.hoverOut = function(){
+        this.hoverEdit = false;
+    };
 	
 	// FILE UPLOADER
 	
