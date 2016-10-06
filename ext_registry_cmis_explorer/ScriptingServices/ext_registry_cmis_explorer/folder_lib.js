@@ -44,7 +44,7 @@ exports.getFolder = function(folderId){
 
 exports.createFolder = function(parentFolderId, name){
 	var parentFolder;
-	if (parentFolderId === null){
+	if (parentFolderId == null){
 		parentFolder = cmisSession.getRootFolder();
 	} else{
 		parentFolder = cmisSession.getObject(parentFolderId);
@@ -56,4 +56,4 @@ exports.createFolder = function(parentFolderId, name){
 	var newFolder = parentFolder.createFolder(properties);
 	
 	return new FolderSerializer(newFolder);
-}
+};

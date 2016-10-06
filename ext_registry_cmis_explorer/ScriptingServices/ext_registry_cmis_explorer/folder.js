@@ -44,6 +44,10 @@ function executeMethod(method){
 
 function handlePost(){
 	var body = getJsonRequestBody();
+	if (body.parentFolderId === null || body.parentFolderId == undefined || body.name === null || body.name == undefined){
+		printError(response.BAD_REQUEST, 4, "Request body must contain 'parentFolderId' and 'name'");
+		return;
+	}
 	var result = folderLib.createFolder(body.parentFolderId, body.name);
 	response.setStatus(response.CREATED);
 	response.print(JSON.stringify(result));
@@ -58,7 +62,7 @@ function handleGet(){
 
 function handlePut(){
 	var body = getJsonRequestBody();
-	if (body.id == null || body.name == null){
+	if (body.id === null || body.id == undefined || body.name === null || body.name == undefined){
 		printError(response.BAD_REQUEST, 4, "Request body must contain 'id' and 'name'");
 		return;
 	}

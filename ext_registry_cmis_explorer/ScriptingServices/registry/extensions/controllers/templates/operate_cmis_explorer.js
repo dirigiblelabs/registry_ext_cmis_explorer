@@ -1,10 +1,9 @@
-'use strict';
-angular
-.module('app', ['angularFileUpload'])
-.controller('DocServiceCtrl', ['$scope', '$http', 'FileUploader', function($scope, $http, FileUploader) {
-	var folderUrl = '../../js/ext_registry_cmis_explorer/folder.js';
+/*globals registryApp, $ */
+
+registryApp.controller('explorerCtrl', ['$scope', '$http', 'FileUploader', function($scope, $http, FileUploader) {
+	var folderUrl = '../../js-secured/ext_registry_cmis_explorer/folder.js';
 	$scope.paths = [];
-	$scope.docsUrl = '../../js/ext_registry_cmis_explorer/document.js';
+	$scope.docsUrl = '../../js-secured/ext_registry_cmis_explorer/document.js';
 	
 	function getFolder(folderId){
 		var requestUrl = folderUrl;
@@ -157,7 +156,7 @@ angular
 	// FILE UPLOADER
 	
     var uploader = $scope.uploader = new FileUploader({
-        url: '../../js/ext_registry_cmis_explorer/document'
+        url: '../../js-secured/ext_registry_cmis_explorer/document'
     });
 
     // UPLOADER FILTERS
