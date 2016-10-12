@@ -44,7 +44,7 @@ function executeMethod(method){
 function handlePost(){
 	if (upload.isMultipartContent()) {
 		var folderId = request.getParameter('id');
-		var documents = upload.parseRequest();
+		var documents = upload.parseRequest(true);
 		var result = [];
 		documents.forEach(function(document) {
 			result.push(documentLib.uploadDocument(folderId, document));

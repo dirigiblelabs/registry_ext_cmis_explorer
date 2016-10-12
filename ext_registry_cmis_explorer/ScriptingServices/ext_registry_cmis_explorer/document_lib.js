@@ -3,7 +3,6 @@
 
 var cmis = require('doc/cmis');
 var streams = require('io/streams');
-var request = require("net/http/request");
 var response = require("net/http/response");
 
 var cmisSession = cmis.getSession();
@@ -32,11 +31,10 @@ exports.uploadDocument = function(folderId, document){
 	}
 	
 	var fileName = document.name;
-	var content = document.data;
 	var mimetype = document.contentType;
-	var inputStream = streams.createByteArrayInputStream(content);
-	
-	var contentStream = cmisSession.getObjectFactory().createContentStream(fileName, content.length, mimetype, inputStream);
+	var size = document.size;
+	var inputStream = new streams.InputStream(document.internalStream);
+	var contentStream = cmisSession.getObjectFactory().createContentStream(fileName, size, mimetype, inputStream);
 	var properties = {};
 	properties[cmis.OBJECT_TYPE_ID] = cmis.OBJECT_TYPE_DOCUMENT;
 	properties[cmis.NAME] = fileName;
