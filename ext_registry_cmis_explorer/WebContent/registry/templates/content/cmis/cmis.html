@@ -1,4 +1,3 @@
-
 <style>
     .my-drop-zone { border: dotted 3px lightgray; }
     .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
@@ -36,11 +35,13 @@
 		      	  <button class="btn btn-default btn-s" data-toggle="modal" data-target="#newFolderModal" type="button">New Folder</button>
 		      	  <button class="btn btn-default" ng-show="!inDeleteSession" ng-disabled="!folder.children.length" ng-click="enterDeleteSession()" type="button">Delete Items</button>
 		      	  <button class="btn btn-danger" ng-show="inDeleteSession" ng-click="handleDeleteButton()" type="button">Delete</button>
+		      	  <button class="btn btn-default" ng-show="inDeleteSession" ng-click="exitDeleteSession()" type="button">Cancel</button>
 		      </div>
 	      </div>
 	      			      			      
 	      <div class="list-group">
 	        <div class="list-group-item my-list-item"
+	        	style="cursor: pointer;"
 	        	ng-repeat="single in folder.children | filter: search | orderBy: '-type'" 
 	        	ng-click="handleExplorerClick(single)"
 	        	ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
@@ -48,9 +49,18 @@
 		            <span class="badge-right fa fa-{{ (single.type === 'cmis:folder') ? 'folder' : 'file-o' }}"></span>
 		            <a href="{{ docsUrl }}?id={{ single.id }}" ng-show="single.type === 'cmis:document'">{{ single.name }}</a>
 		            <span ng-show="single.type === 'cmis:folder'">{{ single.name }}</span>
-		            
-		            <button class="btn btn-danger btn-xs pull-right btn-space" ng-show="hoverEdit" ng-click="handleSingleDelete($event, single)" type="button">Delete</button>
-		            <button class="btn btn-primary btn-xs pull-right btn-space" ng-show="hoverEdit" ng-click="handleRenameButton($event, single)" type="button">Rename</button>
+					<a ng-click="handleSingleDelete($event, single)" class="badge pull-right" target="_blank">
+						<span title="Delete" class="glyphicon glyphicon-remove"></span>
+					</a>
+					<a ng-click="handleRenameButton($event, single)" class="badge pull-right">
+						<span title="Rename" class="glyphicon glyphicon-pencil"></span>
+					</a>
+					<a href="{{ docsUrl }}?id={{ single.id }}" class="badge pull-right" ng-show="single.type === 'cmis:document'">
+						<span title="Download" class="glyphicon glyphicon-cloud-download"></span>
+					</a>
+		            <a href="{{ docsUrl }}?id={{ single.id }}&preview" class="badge pull-right" target="_blank" ng-show="single.type === 'cmis:document'">
+						<span title="Preview" class="glyphicon glyphicon-search"></span>
+					</a>
 	        </div>
 	        <div class="alert alert-warning" role="alert" ng-show="!folder.children.length">No content.</div>
 	      </div>
@@ -138,7 +148,7 @@
         </div>
         
         <!-- Dialogs definition-->
-		<div id="errorModal" class="modal fade">
+		<div id="errorModal" class="modal">
 			<div class="modal-dialog modal-sm" role="dialog">
 			  <div class="modal-content">
 			  
@@ -159,7 +169,7 @@
 			   </div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div>
-		<div id="newFolderModal" class="modal fade" role="dialog">
+		<div id="newFolderModal" class="modal" role="dialog">
 			<div class="modal-dialog modal-sm">
 			    <div class="modal-content">
 			    
@@ -180,7 +190,7 @@
 			    </div>
 			 </div>
 		  </div>
-		<div id="confirmDeleteModal" class="modal fade">
+		<div id="confirmDeleteModal" class="modal">
 			<div class="modal-dialog modal-sm" role="dialog">
 			  <div class="modal-content">
 			  
@@ -205,7 +215,7 @@
 			   </div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div>
-		<div id="renameModal" class="modal fade">
+		<div id="renameModal" class="modal">
 			<div class="modal-dialog modal-sm">
 			    <div class="modal-content">
 			    
@@ -215,7 +225,7 @@
 			      
 			      <div class="modal-body">
 			        <p>Enter new name for item {{itemToDelete.name}}.</p>
-			        <input type="text" class="form-control" ng-model="newName">
+			        <input type="text" class="form-control" ng-model="newName" value="{{itemToDelete.name}}">
 			      </div>
 			      
 			      <div class="modal-footer">

@@ -15,9 +15,18 @@ function DocumentSerializer(cmisDocument){
 exports.downloadDocument = function(documentId){
 	var doc = cmisSession.getObject(documentId);
 	
-	response.setContentType("application/octet-stream");
+	var contentType = doc.getContentStream().getInternalObject().getMimeType();
+	response.setContentType(contentType);
 	response.addHeader("Content-Disposition", "attachment;filename=\"" + doc.getName() + "\"");
 	
+	var contentStream = doc.getContentStream();
+	response.writeStream(contentStream.getStream());
+};
+
+exports.previewDocument = function(documentId){
+	var doc = cmisSession.getObject(documentId);
+	var contentType = doc.getContentStream().getInternalObject().getMimeType();
+	response.setContentType(contentType);
 	var contentStream = doc.getContentStream();
 	response.writeStream(contentStream.getStream());
 };

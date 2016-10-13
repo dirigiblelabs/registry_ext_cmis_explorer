@@ -63,8 +63,13 @@ function handleGet(){
 		printError(response.BAD_REQUEST, 4, "Query parameter 'id' must be provided.");
 		return;
 	}
-
-	documentLib.downloadDocument(documentId);
+	
+	var preview = request.getParameter('preview');
+	if (preview !== null){
+		documentLib.previewDocument(documentId);
+	} else {
+		documentLib.downloadDocument(documentId);
+	}
 }
 
 function handlePut(){

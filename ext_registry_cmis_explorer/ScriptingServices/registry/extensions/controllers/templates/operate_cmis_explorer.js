@@ -81,7 +81,10 @@ registryApp.controller('explorerCtrl', ['$scope', '$http', 'FileUploader', funct
 	
 	$scope.enterDeleteSession = function(){
 		$scope.inDeleteSession = true; 
-		$scope.selectedCheckboxes = [];
+	};
+	
+	$scope.exitDeleteSession = function(){
+		$scope.inDeleteSession = false;
 	};
 	
 	$scope.deleteItems = function(){

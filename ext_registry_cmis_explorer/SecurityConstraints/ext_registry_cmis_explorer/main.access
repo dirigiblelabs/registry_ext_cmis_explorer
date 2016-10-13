@@ -3,7 +3,7 @@
     "location":"/ext_registry_cmis_explorer",
     "roles":
       [
-        {"role":"Operator"}
+        {"role":"Everyone"}
       ]
   }
 ]
