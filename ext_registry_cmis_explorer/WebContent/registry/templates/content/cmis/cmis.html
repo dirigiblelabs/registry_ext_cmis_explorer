@@ -224,12 +224,12 @@
 			      </div>
 			      
 			      <div class="modal-body">
-			        <p>Enter new name for item {{itemToDelete.name}}.</p>
-			        <input type="text" class="form-control" ng-model="newName" value="{{itemToDelete.name}}">
+			        <p>Enter new name for item {{itemToRename.name}}.</p>
+			        <input type="text" class="form-control" ng-model="newName" value="{{itemToRename.name}}">
 			      </div>
 			      
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-primary" ng-click="renameItem(itemToDelete.id, newName)">Rename</button>
+			        <button type="button" class="btn btn-primary" ng-click="renameItem(itemToRename.id, newName)">Rename</button>
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			      </div>
 			      

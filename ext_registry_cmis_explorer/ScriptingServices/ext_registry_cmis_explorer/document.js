@@ -18,6 +18,8 @@ function handleRequest() {
 	try{
 		executeMethod(method);
 	} catch(e){
+		console.error(e);
+		console.trace(e);
 		var index = e.message.indexOf(':') + 1;
 		var shortMessage = e.message.substring(index, e.message.length);
 		printError(response.INTERNAL_SERVER_ERROR, 5, shortMessage);
