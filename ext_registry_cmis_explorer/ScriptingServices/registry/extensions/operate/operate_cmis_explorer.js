@@ -5,8 +5,8 @@ exports.getItem = function() {
 		image: "sign-in",
 		color: 'red',
 		path: "#/content/cmis",
-		title: "CMIS Explorer",
-		description: "Upload and Download Documents"
+		title: "Documents",
+		description: "Manage Documents"
 	};
 	return item;
 };
