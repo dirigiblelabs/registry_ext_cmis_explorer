@@ -3,7 +3,7 @@
 
 exports.getItem = function() {
 	var item = {
-		"icon": "fa-sign-in",
+		"icon": "fa-book",
 		"title": "Upload and Download Documents",
 		"content": "Browse a document repository, upload and download documents, create folders, etc."
 	};
