@@ -2,7 +2,7 @@
 
 exports.getItem = function() {
 	var item = {
-		image: "sign-in",
+		image: "book",
 		color: 'red',
 		path: "#/content/cmis",
 		title: "Documents",
