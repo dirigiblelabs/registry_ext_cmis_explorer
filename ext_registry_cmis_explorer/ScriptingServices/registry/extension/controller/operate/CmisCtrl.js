@@ -1,6 +1,6 @@
-/*globals registryApp, $ */
+/*globals registryApp, $ controllers*/
 
-registryApp.controller('explorerCtrl', ['$scope', '$http', 'FileUploader', function($scope, $http, FileUploader) {
+controllers.controller('CmisCtrl', ['$scope', '$http', 'FileUploader', function($scope, $http, FileUploader) {
 	var folderUrl = '../../js-secured/ext_registry_cmis_explorer/folder.js';
 	$scope.paths = [];
 	$scope.docsUrl = '../../js-secured/ext_registry_cmis_explorer/document.js';
